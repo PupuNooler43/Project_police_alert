@@ -43,5 +43,10 @@ class Mycon {
     fontWeight: FontWeight.normal,
   );
 
+   TextStyle h3Style()=> TextStyle(
+    fontSize: 14,
+    color: dark,
+    fontWeight: FontWeight.normal,
+  );
   
 }
