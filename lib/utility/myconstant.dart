@@ -48,5 +48,13 @@ class Mycon {
     color: dark,
     fontWeight: FontWeight.normal,
   );
+
+
+  ButtonStyle myButtonStyle()=>ElevatedButton.styleFrom(
+                        primary: Mycon.primary,
+                        shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    );
   
 }
