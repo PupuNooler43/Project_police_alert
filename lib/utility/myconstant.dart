@@ -13,15 +13,17 @@ class Mycon {
   static String routeVerifyOTP ='/verifyotp';
   static String routeLogin ='/login';
   static String routeRegister ='/register';
-  static String routeMapHint ='maphint';
-  static String routeDetailUser ='detailuser';
-  static String routeDetailHint ='detailhint';
+  static String routeMapHint ='/maphint';
+  static String routeDetailUser ='/detailuser';
+  static String routeDetailHint ='/detailhint';
+  static String routeLoadingscreen = '/loadingscreen';
 
   //image
 
   static String image1 = 'images/image1.png';
   static String image2 = 'images/image3s512px.png';
   static String image3 = 'images/image4s128px.png';
+  static String logoimage = 'images/logo2.png';
 
   //color
 

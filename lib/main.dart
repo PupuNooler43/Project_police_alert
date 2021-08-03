@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project_policealert/states/detail_hint.dart';
 import 'package:project_policealert/states/detail_user.dart';
 import 'package:project_policealert/states/get_otp.dart';
+import 'package:project_policealert/states/loadingscreen.dart';
 import 'package:project_policealert/states/login.dart';
 import 'package:project_policealert/states/maphint.dart';
 import 'package:project_policealert/states/register.dart';
@@ -16,12 +17,13 @@ final Map<String, WidgetBuilder> map = {
   '/maphint':(BuildContext context)=>Maphint(),
   '/detailuser':(BuildContext context)=>Detailuser(),
   '/detailhint':(BuildContext context)=>Detailhint(),
+  '/loadingscreen':(BuildContext context)=>Loading(),
 
 };
 
 String? initlalRoute;
 void main(){
-  initlalRoute = Mycon.routeLogin;
+  initlalRoute = Mycon.routeLoadingscreen;
   runApp(MyApp());
 }
 

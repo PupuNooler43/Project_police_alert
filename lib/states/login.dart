@@ -31,11 +31,28 @@ class _LoginState extends State<Login> {
               buildUser(size),
               buildPassword(size),
               buildLogin(size),
+              buildRegister(),
             ],
           ),
         ),
         ),
     );
+  }
+
+  Row buildRegister() {
+    return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ShowTitle(
+                  title: 'หากใช้งานครั้งแรก', 
+                  textStyle: Mycon().h3Style(),
+                ),
+                TextButton(
+                  onPressed: ()=>Navigator.pushNamed(context, Mycon.routeRegister), 
+                  child: Text('สมัครสมาชิก'),
+                ),
+              ],
+            );
   }
 
   Row buildLogin(double size) {
@@ -47,7 +64,7 @@ class _LoginState extends State<Login> {
                   child: ElevatedButton(
                       style: Mycon().myButtonStyle(),
                     onPressed: () { }, 
-                    child: Text('Login'),
+                    child: Text('เข้าสู่ระบบ'),
                   ),
                 ),
               ],
@@ -63,7 +80,7 @@ class _LoginState extends State<Login> {
                 child: TextFormField( 
                   decoration: InputDecoration(
                     labelStyle: Mycon().h3Style(),
-                    labelText: 'Username',
+                    labelText: 'ชื่อผู้ใช้งาน',
                     prefixIcon: Icon(
                     Icons.account_circle_outlined,
                     color: Mycon.dark,
@@ -106,7 +123,7 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     labelStyle: Mycon().h3Style(),
-                    labelText: 'Passwors',
+                    labelText: 'รหัสผ่าน',
                     prefixIcon: Icon(
                     Icons.lock_outline,
                     color: Mycon.dark,
