@@ -23,7 +23,7 @@ final Map<String, WidgetBuilder> map = {
 
 String? initlalRoute;
 void main(){
-  initlalRoute = Mycon.routeLoadingscreen;
+  initlalRoute = Mycon.routeRegister;
   runApp(MyApp());
 }
 

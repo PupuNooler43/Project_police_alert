@@ -50,6 +50,7 @@ class _LoginState extends State<Login> {
                 TextButton(
                   onPressed: ()=>Navigator.pushNamed(context, Mycon.routeRegister), 
                   child: Text('สมัครสมาชิก'),
+                  
                 ),
               ],
             );
