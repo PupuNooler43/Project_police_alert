@@ -21,7 +21,7 @@ class _LoginState extends State<Login> {
     return Scaffold(
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode(),),
           behavior: HitTestBehavior.opaque,
           child: ListView(
             children: [
@@ -165,9 +165,9 @@ class _LoginState extends State<Login> {
   Row buildImage(double size) {
     return Row( mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
-            width: size*0.5,
-            child: ShowImage(path: Mycon.image3)),
+        Container(margin: EdgeInsets.only(top: 20),
+            width: size*0.4,
+            child: ShowImage(path: Mycon.loginlogo),),
       ],
     );
   }

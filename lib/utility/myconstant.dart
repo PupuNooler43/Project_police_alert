@@ -20,9 +20,7 @@ class Mycon {
 
   //image
 
-  static String image1 = 'images/image1.png';
-  static String image2 = 'images/image3s512px.png';
-  static String image3 = 'images/image4s128px.png';
+  static String loginlogo = 'images/loginlogo.png';
   static String logoimage = 'images/logo2.png';
 
   //color
