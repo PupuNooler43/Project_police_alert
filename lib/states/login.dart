@@ -31,7 +31,7 @@ class _LoginState extends State<Login> {
               buildUser(size),
               buildPassword(size),
               buildLogin(size),
-              buildRegister(),
+              buildRegister(size),
             ],
           ),
         ),
@@ -39,18 +39,18 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Row buildRegister() {
-    return Row(
+  Row buildRegister(double size) {
+     return Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ShowTitle(
-                  title: 'หากใช้งานครั้งแรก', 
-                  textStyle: Mycon().h3Style(),
-                ),
-                TextButton(
-                  onPressed: ()=>Navigator.pushNamed(context, Mycon.routeRegister), 
-                  child: Text('สมัครสมาชิก'),
-                  
+                Container(
+                  margin: EdgeInsets.only(top: 5),
+                  width: size * 0.6,
+                  child: ElevatedButton(
+                    style: Mycon().myButtonStyle(),
+                    onPressed:()=>Navigator.pushNamed(context, Mycon.routeRegister), 
+                    child: Text('Register'),
+                  ),
                 ),
               ],
             );
@@ -60,12 +60,12 @@ class _LoginState extends State<Login> {
     return Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(margin: EdgeInsets.symmetric(vertical: 20),
+                Container(margin: EdgeInsets.only(top: 16),
                   width: size * 0.6,
                   child: ElevatedButton(
                       style: Mycon().myButtonStyle(),
-                    onPressed: () { }, 
-                    child: Text('เข้าสู่ระบบ'),
+                    onPressed:()=>Navigator.pushNamed(context, Mycon.routeMapHint), 
+                    child: Text('Login'),
                   ),
                 ),
               ],
@@ -88,11 +88,11 @@ class _LoginState extends State<Login> {
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Mycon.light),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(30),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Mycon.dark),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(30),
                     ),
                   ),
                 ),
@@ -131,11 +131,11 @@ class _LoginState extends State<Login> {
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Mycon.light),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(30),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Mycon.dark),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(30),
                     ),
                   ),
                 ),

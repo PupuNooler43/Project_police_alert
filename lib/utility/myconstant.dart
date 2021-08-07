@@ -22,6 +22,7 @@ class Mycon {
 
   static String loginlogo = 'images/loginlogo.png';
   static String logoimage = 'images/logo2.png';
+  static String logoregis = 'images/logoregis.png';
 
   //color
 
@@ -45,6 +46,12 @@ class Mycon {
 
    TextStyle h3Style()=> TextStyle(
     fontSize: 14,
+    color: dark,
+    fontWeight: FontWeight.normal,
+  );
+
+     TextStyle h4Style()=> TextStyle(
+    fontSize: 12,
     color: dark,
     fontWeight: FontWeight.normal,
   );
