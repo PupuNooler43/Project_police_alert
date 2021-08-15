@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_policealert/utility/myconstant.dart';
 import 'package:project_policealert/widgets/showimage.dart';
-import 'package:project_policealert/widgets/showlocate.dart';
 import 'package:project_policealert/widgets/showtitle.dart';
 
 class Login extends StatefulWidget {
@@ -27,7 +26,6 @@ class _LoginState extends State<Login> {
             children: [
               buildImage(size),
               buildAppName(),
-              buildAppLocate(),
               buildUser(size),
               buildPassword(size),
               buildLogin(size),
@@ -144,20 +142,12 @@ class _LoginState extends State<Login> {
           );
   }
 
-  Row buildAppLocate() {
-    return Row(mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ShowLocate(locate: Mycon.appLocate, textStyle: Mycon().h2Style()),
-            ],
-          );
-  }
-
   Row buildAppName() {
     return Row(mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ShowTitle(
-                title: Mycon.appName, 
-                textStyle: Mycon().h1Style()),
+                title: 'PoliceAlert (Bangna)', 
+                textStyle: Mycon().h2Style()),
             ],
           );
   }
@@ -167,7 +157,7 @@ class _LoginState extends State<Login> {
       children: [
         Container(margin: EdgeInsets.only(top: 20),
             width: size*0.4,
-            child: ShowImage(path: Mycon.loginlogo),),
+            child: ShowImage(path: Mycon.iconlogo),),
       ],
     );
   }

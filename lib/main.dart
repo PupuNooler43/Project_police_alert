@@ -23,8 +23,8 @@ final Map<String, WidgetBuilder> map = {
 
 String? initlalRoute;
 void main(){
-  initlalRoute = Mycon.routeRegister;
-  runApp(MyApp());
+  initlalRoute = Mycon.routeGetOTP;
+  runApp(MyApp(),);
 }
 
 class MyApp extends StatelessWidget {
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: Mycon.appName,
+      title: 'PoliceAlert (BangNa)',
       routes: map,
       initialRoute: initlalRoute,
 

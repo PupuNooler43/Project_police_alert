@@ -17,7 +17,7 @@ class _LoadingState extends State<Loading> {
           children: [
             Container(
               child: ShowImage(
-                path: Mycon.logoimage),
+                path: Mycon.loadinglogo),
             ),
           ],
         ),

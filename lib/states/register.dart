@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:project_policealert/utility/myconstant.dart';
-import 'package:project_policealert/widgets/showimage.dart';
 import 'package:project_policealert/widgets/showtitle.dart';
 
 class Register extends StatefulWidget {

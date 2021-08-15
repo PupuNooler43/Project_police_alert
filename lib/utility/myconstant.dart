@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
 
 class Mycon {
-
-  //genernal
-
-  static String appName ='Police Alert';
-  static String appLocate = '(FOR BANGNA)';
-
   //route
 
   static String routeGetOTP ='/getotp';
@@ -20,15 +14,15 @@ class Mycon {
 
   //image
 
-  static String loginlogo = 'images/loginlogo.png';
-  static String logoimage = 'images/logo2.png';
-  static String logoregis = 'images/logoregis.png';
+  static String iconlogo = 'images/iconlogo.png';
+  static String loadinglogo = 'images/loadinglogo.png';
+ 
 
   //color
 
-  static Color primary = Color(0xffc10000);
-  static Color dark = Color(0xfffc4c2e);
-  static Color light = Color(0xff890000);
+  static Color primary = Color(0xff795548);
+  static Color dark = Color(0xff4b2c20);
+  static Color light = Color(0xffa98274);
 
   //style
 
@@ -38,19 +32,19 @@ class Mycon {
     fontWeight: FontWeight.bold,
   );
 
-   TextStyle h2Style()=> TextStyle(
+  TextStyle h2Style()=> TextStyle(
     fontSize: 16,
     color: dark,
     fontWeight: FontWeight.normal,
   );
 
-   TextStyle h3Style()=> TextStyle(
+  TextStyle h3Style()=> TextStyle(
     fontSize: 14,
     color: dark,
     fontWeight: FontWeight.normal,
   );
 
-     TextStyle h4Style()=> TextStyle(
+  TextStyle h4Style()=> TextStyle(
     fontSize: 12,
     color: dark,
     fontWeight: FontWeight.normal,
