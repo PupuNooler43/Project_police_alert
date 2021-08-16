@@ -4,7 +4,6 @@ class Mycon {
   //route
 
   static String routeGetOTP ='/getotp';
-  static String routeVerifyOTP ='/verifyotp';
   static String routeLogin ='/login';
   static String routeRegister ='/register';
   static String routeMapHint ='/maphint';

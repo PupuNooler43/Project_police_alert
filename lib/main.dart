@@ -6,12 +6,10 @@ import 'package:project_policealert/states/loadingscreen.dart';
 import 'package:project_policealert/states/login.dart';
 import 'package:project_policealert/states/maphint.dart';
 import 'package:project_policealert/states/register.dart';
-import 'package:project_policealert/states/verify_otp.dart';
 import 'package:project_policealert/utility/myconstant.dart';
 
 final Map<String, WidgetBuilder> map = {
-  '/getotp':(BuildContext context)=>Getotp(),
-  '/verifyotp':(BuildContext context)=>Verifyotp(),
+  '/getotp':(BuildContext context)=>GetOTP(),
   '/login':(BuildContext context)=>Login(),
   '/register':(BuildContext context)=>Register(),
   '/maphint':(BuildContext context)=>Maphint(),
