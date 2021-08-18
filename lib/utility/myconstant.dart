@@ -4,6 +4,7 @@ class Mycon {
   //route
 
   static String routeGetOTP ='/getotp';
+  static String routeVerify = '/verify';
   static String routeLogin ='/login';
   static String routeRegister ='/register';
   static String routeMapHint ='/maphint';
@@ -47,6 +48,12 @@ class Mycon {
     fontSize: 12,
     color: dark,
     fontWeight: FontWeight.normal,
+  );
+  
+  TextStyle h5Style()=> TextStyle(
+    fontSize: 14,
+    color: dark,
+    fontWeight: FontWeight.bold,
   );
 
 

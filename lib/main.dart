@@ -6,9 +6,11 @@ import 'package:project_policealert/states/loadingscreen.dart';
 import 'package:project_policealert/states/login.dart';
 import 'package:project_policealert/states/maphint.dart';
 import 'package:project_policealert/states/register.dart';
+import 'package:project_policealert/states/verify.dart';
 import 'package:project_policealert/utility/myconstant.dart';
 
 final Map<String, WidgetBuilder> map = {
+  '/verify':(BuildContext context)=>Verify(),
   '/getotp':(BuildContext context)=>GetOTP(),
   '/login':(BuildContext context)=>Login(),
   '/register':(BuildContext context)=>Register(),

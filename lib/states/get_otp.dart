@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:otp_text_field/otp_field.dart';
-import 'package:otp_text_field/otp_field_style.dart';
-import 'package:otp_text_field/style.dart';
+import 'package:project_policealert/Services/auth_service.dart';
 import 'package:project_policealert/utility/myconstant.dart';
 import 'package:project_policealert/widgets/showimage.dart';
 import 'package:project_policealert/widgets/showtitle.dart';
@@ -14,6 +12,35 @@ class GetOTP extends StatefulWidget {
 }
 
 class _GetOTPState extends State<GetOTP> {
+  var phoneNumberController = TextEditingController();
+
+  showAlertDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: Row(
+        children: [
+          CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
+          ),
+          SizedBox(
+            width: 8,
+          ),
+          Text('Just a moment.')
+        ],
+      ),
+    );
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        });
+  }
+  PhoneAuth _service = PhoneAuth();
+
+  phoneAuthentication(number) {
+    print(number);
+  }
+
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width;
@@ -25,11 +52,14 @@ class _GetOTPState extends State<GetOTP> {
               buildImage(size),
               buildText1(),
               buildText2(),
+              SizedBox(
+                height: 20,
+              ),
               buildPhonenumber(size),
               SizedBox(
                 height: 20,
               ),
-              otpField(),
+              buildGetOTP(size),
             ],
           ),
         ),
@@ -53,7 +83,7 @@ class _GetOTPState extends State<GetOTP> {
       children: [
         Container(
           width: size * 0.5,
-          margin: EdgeInsets.only(top: 30),
+          margin: EdgeInsets.only(top: 60),
           child: ShowImage(path: Mycon.iconlogo),
         ),
       ],
@@ -68,20 +98,16 @@ class _GetOTPState extends State<GetOTP> {
           margin: EdgeInsets.only(top: 16),
           width: size * 0.8,
           child: TextFormField(
+            autofocus: true,
+            maxLength: 10,
+            keyboardType: TextInputType.phone,
+            controller: phoneNumberController,
             decoration: InputDecoration(
               labelStyle: Mycon().h3Style(),
               labelText: 'หมายเลขโทรศัพท์',
               prefixIcon: Icon(
                 Icons.phone,
                 color: Mycon.dark,
-              ),
-              suffixIcon: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 14, horizontal: 15),
-                child: Text(
-                  'ส่งรหัส OTP',
-                  style: Mycon().h3Style(),
-                ),
               ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Mycon.light),
@@ -98,20 +124,26 @@ class _GetOTPState extends State<GetOTP> {
     );
   }
 
-  Widget otpField() {
-    return OTPTextField(
-      length: 6,
-      width: MediaQuery.of(context).size.width - 34,
-      fieldWidth: 45,
-      style: TextStyle(fontSize: 17),
-      otpFieldStyle: OtpFieldStyle(
-        borderColor: Colors.brown.shade800,
-      ),
-      textFieldAlignment: MainAxisAlignment.spaceAround,
-      fieldStyle: FieldStyle.underline,
-      onCompleted: (pin) {
-        print("Completed: " + pin);
-      },
+  Row buildGetOTP(double size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 16),
+          width: size * 0.6,
+          child: ElevatedButton(
+            style: Mycon().myButtonStyle(),
+            onPressed: () {
+              String number = '${phoneNumberController.text}';
+              showAlertDialog(context);
+              _service.verifyPhoneNumber(context, number);
+            },
+            child: Text('Next'),
+          ),
+        ),
+      ],
     );
   }
 }
+
+
