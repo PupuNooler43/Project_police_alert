@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:project_policealert/states/detail_hint.dart';
 import 'package:project_policealert/states/detail_user.dart';
@@ -22,8 +23,10 @@ final Map<String, WidgetBuilder> map = {
 };
 
 String? initlalRoute;
-void main(){
+void main()async{
   initlalRoute = Mycon.routeGetOTP;
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp(),);
 }
 
