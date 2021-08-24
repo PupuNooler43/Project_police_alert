@@ -24,7 +24,7 @@ final Map<String, WidgetBuilder> map = {
 
 String? initlalRoute;
 void main()async{
-  initlalRoute = Mycon.routeGetOTP;
+  initlalRoute = Mycon.routeLogin;
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp(),);

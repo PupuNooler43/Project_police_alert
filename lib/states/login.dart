@@ -1,10 +1,15 @@
+import 'dart:convert';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:project_policealert/utility/myconstant.dart';
 import 'package:project_policealert/widgets/showimage.dart';
 import 'package:project_policealert/widgets/showtitle.dart';
 
+import 'maphint.dart';
+
 class Login extends StatefulWidget {
-  const Login({ Key? key }) : super(key: key);
+  const Login({ Key? key}) : super(key: key);
 
   @override
   _LoginState createState() => _LoginState();
@@ -13,6 +18,50 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
 
   bool statusRedeye = true;
+
+  var _login = GlobalKey<FormState>();
+
+  TextEditingController username = TextEditingController();
+  TextEditingController password = TextEditingController();
+
+   Future login() async {
+    var res = await http.post(
+      Uri.parse(
+        "http://192.168.1.32/datacon/login.php",
+      ),
+      body: {
+        "username": username.text,
+        "password": password.text,
+      },
+    );
+
+    var arr = json.decode(res.body);
+
+  if (arr["code"] == "0") {
+      Fluttertoast.showToast(
+        msg: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.black54,
+        textColor: Colors.white,
+      );
+    } else if (arr["code"] == "1" && arr["permission_status"] == "member") {
+      Fluttertoast.showToast(
+        msg: "ยินดีต้อนรับเข้าสู่ระบบ",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.black54,
+        textColor: Colors.white,
+      );
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (BuildContext context) => new Maphint(),
+        ),
+      );
+    }
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -22,15 +71,18 @@ class _LoginState extends State<Login> {
         child: GestureDetector(
           onTap: () => FocusScope.of(context).requestFocus(FocusNode(),),
           behavior: HitTestBehavior.opaque,
-          child: ListView(
-            children: [
-              buildImage(size),
-              buildAppName(),
-              buildUser(size),
-              buildPassword(size),
-              buildLogin(size),
-              buildRegister(size),
-            ],
+          child: Form(
+            key: _login,
+            child: ListView(
+              children: [
+                buildImage(size),
+                buildAppName(),
+                buildUser(size),
+                buildPassword(size),
+                buildLogin(size),
+                buildRegister(size),
+              ],
+            ),
           ),
         ),
         ),
@@ -62,7 +114,11 @@ class _LoginState extends State<Login> {
                   width: size * 0.6,
                   child: ElevatedButton(
                       style: Mycon().myButtonStyle(),
-                    onPressed:()=>Navigator.pushNamed(context, Mycon.routeMapHint), 
+                    onPressed:(){
+                      if (_login.currentState!.validate()) {
+                            login();
+                          }
+                    }, 
                     child: Text('Login'),
                   ),
                 ),
@@ -77,6 +133,7 @@ class _LoginState extends State<Login> {
               Container(margin: EdgeInsets.only(top: 16),
                 width: size * 0.6,
                 child: TextFormField( 
+                  controller: username,
                   decoration: InputDecoration(
                     labelStyle: Mycon().h3Style(),
                     labelText: 'ชื่อผู้ใช้งาน',
@@ -93,6 +150,12 @@ class _LoginState extends State<Login> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
+                  validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "กรุณากรอกชื่อผู้ใช้";
+                          }
+                          return null;
+                        },
                 ),
               ),
             ],
@@ -106,6 +169,7 @@ class _LoginState extends State<Login> {
               Container(margin: EdgeInsets.only(top: 16),
                 width: size * 0.6,
                 child: TextFormField(
+                  controller: password,
                   obscureText: statusRedeye, 
                   decoration: InputDecoration(
                     suffixIcon: IconButton(onPressed: () {
@@ -136,6 +200,12 @@ class _LoginState extends State<Login> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
+                  validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "กรุณากรอกรหัสผ่าน";
+                          }
+                          return null;
+                        },
                 ),
               ),
             ],

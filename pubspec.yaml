@@ -31,6 +31,8 @@ dependencies:
   flutter_otp_text_field: ^1.0.0
   firebase_auth: ^3.0.2
   firebase_core: ^1.5.0
+  http: ^0.13.3
+  fluttertoast: ^8.0.8
 
   
 
