@@ -18,6 +18,7 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
 
   bool statusRedeye = true;
+  bool statusRedeyecom = true;
 
   var _regis = GlobalKey<FormState>();
 
@@ -258,7 +259,7 @@ TextEditingController tel = TextEditingController();
               suffixIcon: IconButton(
                 onPressed: () {
                   setState(() {
-                    statusRedeye = !statusRedeye;
+                    statusRedeyecom = !statusRedeyecom;
                   });
                 },
                 icon: statusRedeye
