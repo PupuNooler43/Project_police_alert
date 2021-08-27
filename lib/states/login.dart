@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:project_policealert/utility/myconstant.dart';
 import 'package:project_policealert/widgets/showimage.dart';
 import 'package:project_policealert/widgets/showtitle.dart';
-
+import 'package:get_storage/get_storage.dart';
 import 'maphint.dart';
 
 class Login extends StatefulWidget {
@@ -15,11 +15,26 @@ class Login extends StatefulWidget {
   _LoginState createState() => _LoginState();
 }
 
+class LoginData {
+  var username;
+  var fname;
+  var lname;
+  var tel;
+
+  LoginData.arr(
+    Map data,
+  ) : username = data["username"],
+   fname = data["f_name"],
+   lname = data["l_name"],
+   tel = data["tel"];
+}
+
 class _LoginState extends State<Login> {
 
   bool statusRedeye = true;
 
   var _login = GlobalKey<FormState>();
+  var _dataStorage = GetStorage();
 
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -47,8 +62,15 @@ class _LoginState extends State<Login> {
         textColor: Colors.white,
       );
     } else if (arr["code"] == "1" && arr["permission_status"] == "member") {
+      var data = LoginData.arr(arr);
+
+      _dataStorage.write("username", "${data.username}");
+      _dataStorage.write("fname", "${data.fname}");
+      _dataStorage.write("lname", "${data.lname}");
+      _dataStorage.write("tel", "${data.tel}");
+
       Fluttertoast.showToast(
-        msg: "ยินดีต้อนรับเข้าสู่ระบบ",
+        msg: "ยินดีต้อนรับเข้าสู่ระบบ ${data.fname} ${data.lname}",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,

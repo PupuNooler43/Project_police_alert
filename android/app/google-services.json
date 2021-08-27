@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "599412932719",
-    "project_id": "my-project-test-270117",
-    "storage_bucket": "my-project-test-270117.appspot.com"
+    "project_number": "23434015580",
+    "project_id": "policealert-d9540",
+    "storage_bucket": "policealert-d9540.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:599412932719:android:bc37cd17a86c2804464d9a",
+        "mobilesdk_app_id": "1:23434015580:android:87a33e23cafdcb5a294799",
         "android_client_info": {
           "package_name": "com.flutterthailand.project_policealert"
         }
       },
       "oauth_client": [
         {
-          "client_id": "599412932719-q60pgplmkbv5dje6ht9rkh95bmi272ae.apps.googleusercontent.com",
+          "client_id": "23434015580-1dj7a8bu5jfl7j2fj5ev7fa179872q2o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.flutterthailand.project_policealert",
+            "certificate_hash": "bb34108ff176e9ec4163b3d54604c3b51b3bcd54"
+          }
+        },
+        {
+          "client_id": "23434015580-vuv2ml2rn6rj7j7hddkp2vv9lddr9e4s.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDElIqDRQ0ggmZfN-SFvEbf06den4s2ERg"
+          "current_key": "AIzaSyA9itqN-sPvEKqv93y9CHOnehSs8jnzlq0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "599412932719-q60pgplmkbv5dje6ht9rkh95bmi272ae.apps.googleusercontent.com",
+              "client_id": "23434015580-vuv2ml2rn6rj7j7hddkp2vv9lddr9e4s.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

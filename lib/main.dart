@@ -2,17 +2,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:project_policealert/states/detail_hint.dart';
 import 'package:project_policealert/states/detail_user.dart';
-import 'package:project_policealert/states/get_otp.dart';
 import 'package:project_policealert/states/loadingscreen.dart';
 import 'package:project_policealert/states/login.dart';
 import 'package:project_policealert/states/maphint.dart';
 import 'package:project_policealert/states/register.dart';
-import 'package:project_policealert/states/verify.dart';
 import 'package:project_policealert/utility/myconstant.dart';
 
 final Map<String, WidgetBuilder> map = {
-  '/verify':(BuildContext context)=>Verify(),
-  '/getotp':(BuildContext context)=>GetOTP(),
   '/login':(BuildContext context)=>Login(),
   '/register':(BuildContext context)=>Register(),
   '/maphint':(BuildContext context)=>Maphint(),
@@ -23,8 +19,9 @@ final Map<String, WidgetBuilder> map = {
 };
 
 String? initlalRoute;
-void main()async{
-  initlalRoute = Mycon.routeMapHint;
+
+void main() async{
+  initlalRoute = Mycon.routeLogin;
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp(),);
