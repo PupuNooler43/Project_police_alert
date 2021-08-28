@@ -65,9 +65,6 @@ class _LoginState extends State<Login> {
       var data = LoginData.arr(arr);
 
       _dataStorage.write("username", "${data.username}");
-      _dataStorage.write("fname", "${data.fname}");
-      _dataStorage.write("lname", "${data.lname}");
-      _dataStorage.write("tel", "${data.tel}");
 
       Fluttertoast.showToast(
         msg: "ยินดีต้อนรับเข้าสู่ระบบ ${data.fname} ${data.lname}",
