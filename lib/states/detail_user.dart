@@ -97,9 +97,6 @@ class _DetailuserState extends State<Detailuser> {
                       controller: _fname = TextEditingController(
                           text: _dataStorage.read("fname")),
                       decoration: InputDecoration(
-                        hintStyle: TextStyle(
-                          fontFamily: "Mitr",
-                        ),
                         border: OutlineInputBorder(),
                         labelText: "ชื่อ",
                         isDense: true,
@@ -189,22 +186,35 @@ class _DetailuserState extends State<Detailuser> {
               },
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(
-              top: 40,
-            ),
-            child: ElevatedButton(
-              style: TextButton.styleFrom(
-                primary: Color(0xffFFFFFF),
-                backgroundColor: Color(0xff275D8C),
+          Row(
+            children: [
+              Container(
+                margin: EdgeInsets.only(top: 40, left: 80),
+                child: ElevatedButton(
+                  style: Mycon().myButtonStyle(),
+                  child: Text(
+                    "บันทึกข้อมูล",
+                  ),
+                  onPressed: () {
+                    update();
+                  },
+                ),
               ),
-              child: Text(
-                "บันทึกข้อมูล",
+              Container(
+                margin: EdgeInsets.only(top: 40, left: 40),
+                width: 110,
+                child: ElevatedButton(
+                  style: Mycon().myButtonStyle2(),
+                  child: Text(
+                    "ยกเลิก",
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => Maphint()));
+                  },
+                ),
               ),
-              onPressed: () {
-                update();
-              },
-            ),
+            ],
           ),
         ],
       ),

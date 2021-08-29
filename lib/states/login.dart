@@ -244,7 +244,7 @@ class _LoginState extends State<Login> {
   Row buildImage(double size) {
     return Row( mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(margin: EdgeInsets.only(top: 20),
+        Container(margin: EdgeInsets.only(top: 120),
             width: size*0.4,
             child: ShowImage(path: Mycon.iconlogo),),
       ],

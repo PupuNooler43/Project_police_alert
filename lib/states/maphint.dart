@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -25,14 +27,18 @@ class Data {
 
   Data.arr(
     Map data,
-  ) : 
-   fname = data["f_name"],
-   lname = data["l_name"],
-   tel = data["tel"],
-   email = data["email"];
+  )   : fname = data["f_name"],
+        lname = data["l_name"],
+        tel = data["tel"],
+        email = data["email"];
 }
 
 class _MaphintState extends State<Maphint> {
+
+  TextEditingController typedetail = TextEditingController();
+  TextEditingController moredetailhint = TextEditingController();
+  TextEditingController moredetailplace = TextEditingController();
+
   var _dataStorage = GetStorage();
 
   final padding = EdgeInsets.symmetric(horizontal: 20);
@@ -50,7 +56,8 @@ class _MaphintState extends State<Maphint> {
     }
     return userLocation;
   }
- //ดึงข้อมูลจาก Database
+
+  //ดึงข้อมูลจาก Database
   Future data() async {
     var res = await http.post(
       Uri.parse(
@@ -71,7 +78,41 @@ class _MaphintState extends State<Maphint> {
       _dataStorage.write("tel", "${data.tel}");
       _dataStorage.write("email", "${data.email}");
     }
+  }
 
+  Future detailhint() async {
+    var res = await http.post(
+      Uri.parse(
+        "http://192.168.1.32/datacon/insert_detail.php",  
+      ),
+      body: {
+        "type_detail": typedetail.text,
+        "more_detail_hint": moredetailhint.text,
+        "more_detail_place": moredetailplace.text,
+      },
+    );
+
+    var arr = json.decode(res.body);
+
+    if (arr["code"] == "0") {
+      Fluttertoast.showToast(
+        msg: "Error",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.black54,
+        textColor: Colors.white,
+      );
+    } else if (arr["code"] == "1") {
+      Fluttertoast.showToast(
+        msg: "แจ้งเบาะแสเรียบร้อยแล้ว",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.black54,
+        textColor: Colors.white,
+      );
+    }
   }
 
   @override
@@ -129,47 +170,104 @@ class _MaphintState extends State<Maphint> {
             }
           },
         ),
-        Positioned(
-          bottom: 50,
-          right: 140,
-          child: ElevatedButton(
-            style: Mycon().myButtonStyle(),
-              onPressed: () {
-                AlertDialog alertBox = AlertDialog(
-                            title: Text("AlertDialog"),
-                            content: Column(
-                              children: [
-                                TextField(
-                                    ),
-                              ],
+        Container(margin: EdgeInsets.only(top: 600),
+          child: Row(mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Positioned(
+                child: ElevatedButton(
+                  style: Mycon().myButtonStyle(),
+                  onPressed: () {
+                    AlertDialog alertBox = AlertDialog(
+                      title: Text("รายละเอียดเบาะแส"),
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextFormField(
+                            controller: typedetail,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'ประเภทเบาะแส',
+                              isDense: true,
                             ),
-                            actions: [
-                              TextButton(
-                                child: Text(
-                                  "ยืนยัน",
-                                ),
-                                onPressed: () {
-                                  
-                                },
-                              ),
-                              TextButton(
-                                child: Text(
-                                  "ยกเลิก",
-                                ),
-                                onPressed: () {},
-                              ),
-                            ],
-                          );
-
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return alertBox;
+                            keyboardType: TextInputType.name,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "กรุณากรอกประเภทเบาะแส เช่น การพนัน ยาเสพติด ฯลฯ";
+                              }
+                              return null;
                             },
-                          );
+                          ),
+                          Container(margin: EdgeInsets.only(top: 16),
+                            child: TextFormField(
+                              controller: moredetailhint,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'รายละเอียดเบาะแสเพิ่มเติม',
+                                isDense: true,
+                              ),
+                              keyboardType: TextInputType.name,
+                            ),
+                          ),
+                          Container(margin: EdgeInsets.only(top: 16),
+                            child: TextFormField(
+                              controller: moredetailplace,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'รายละเอียดสถานที่เพิ่มเติม',
+                                isDense: true,
+                              ),
+                              keyboardType: TextInputType.name,
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Container(margin: EdgeInsets.only(top: 20,),
+                                child: ElevatedButton(
+                                  style: Mycon().myButtonStyle3(), 
+                                  onPressed: () {  },
+                                  child: Icon(Icons.camera_alt_sharp),
+                                ),
+                              ),
+                              Container(margin: EdgeInsets.only(top: 20,left: 16),
+                                child: ElevatedButton(
+                                  style: Mycon().myButtonStyle3(), 
+                                  onPressed: () {  },
+                                  child: Icon(Icons.upload),
+                                ),
+                              ),
+                            ], 
+                          ),
+                        ],
+                      ),
+                      actions: [
+                        TextButton(
+                          child: Text(
+                            "ยืนยัน",
+                          ),
+                          onPressed: () {detailhint();},
+                        ),
+                        TextButton(
+                          child: Text(
+                            "ยกเลิก",
+                          ),
+                          onPressed: () {},
+                        ),
+                      ],
+                    );
 
-              },
-              child: Text('กรอกรายละเอียด'),
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) {
+                        
+                        return alertBox;
+                      },
+                    );
+                  },
+                  child: Text('กรอกรายละเอียดเบาะแส'),
+                ),
+              ),
+            ],
           ),
         ),
       ]),
