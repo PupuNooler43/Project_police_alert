@@ -1,11 +1,14 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:project_policealert/states/maphint.dart';
 import 'package:project_policealert/utility/myconstant.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:project_policealert/widgets/showimage.dart';
 
 class Detailuser extends StatefulWidget {
   const Detailuser({Key? key}) : super(key: key);
@@ -15,6 +18,8 @@ class Detailuser extends StatefulWidget {
 }
 
 class _DetailuserState extends State<Detailuser> {
+  File? file;
+
   var _dataStorage = GetStorage();
 
   TextEditingController _fname = TextEditingController();
@@ -64,8 +69,20 @@ class _DetailuserState extends State<Detailuser> {
     }
   }
 
+//image picker
+  Future<Null> chooseImage(ImageSource source) async {
+    try {
+      var result = await ImagePicker()
+          .pickImage(source: source, maxWidth: 800, maxHeight: 800);
+      setState(() {
+        file = File(result!.path);
+      });
+    } catch (e) {}
+  }
+
   @override
   Widget build(BuildContext context) {
+    double size = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         title: Text('Edit Account'),
@@ -86,6 +103,36 @@ class _DetailuserState extends State<Detailuser> {
       ),
       body: ListView(
         children: [
+          Container(
+            margin: EdgeInsets.only(top: 20),
+            child: CircleAvatar(
+              maxRadius: size * 0.2,
+              backgroundColor: Colors.transparent,
+              child: file == null
+                  ? ShowImage(path: Mycon.avatar)
+                  : Image.file(file!),
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                margin: EdgeInsets.only(top: 40),
+                child: ElevatedButton(
+                    style: Mycon().myButtonStyle3(),
+                    child: Icon(Icons.camera_alt_sharp),
+                    onPressed: () => chooseImage(ImageSource.camera)),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 40, left: 30),
+                child: ElevatedButton(
+                  style: Mycon().myButtonStyle3(),
+                  child: Icon(Icons.upload),
+                  onPressed: () => chooseImage(ImageSource.gallery),
+                ),
+              ),
+            ],
+          ),
           Container(
             margin: EdgeInsets.only(right: 10, left: 10),
             child: Row(
@@ -187,9 +234,10 @@ class _DetailuserState extends State<Detailuser> {
             ),
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                margin: EdgeInsets.only(top: 40, left: 80),
+                margin: EdgeInsets.only(top: 40),
                 child: ElevatedButton(
                   style: Mycon().myButtonStyle(),
                   child: Text(
@@ -201,7 +249,7 @@ class _DetailuserState extends State<Detailuser> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 40, left: 40),
+                margin: EdgeInsets.only(top: 40, left: 30),
                 width: 110,
                 child: ElevatedButton(
                   style: Mycon().myButtonStyle2(),

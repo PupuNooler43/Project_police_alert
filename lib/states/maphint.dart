@@ -170,105 +170,103 @@ class _MaphintState extends State<Maphint> {
             }
           },
         ),
-        Container(margin: EdgeInsets.only(top: 600),
-          child: Row(mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Positioned(
-                child: ElevatedButton(
-                  style: Mycon().myButtonStyle(),
-                  onPressed: () {
-                    AlertDialog alertBox = AlertDialog(
-                      title: Text("รายละเอียดเบาะแส"),
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          TextFormField(
-                            controller: typedetail,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'ประเภทเบาะแส',
-                              isDense: true,
+        Center(
+          child: Container(margin: EdgeInsets.only(top: 600),
+            child:ElevatedButton(
+                    style: Mycon().myButtonStyle(),
+                    onPressed: () {
+                      AlertDialog alertBox = AlertDialog(
+                        title: Text("รายละเอียดเบาะแส"),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            TextFormField(
+                              controller: typedetail = TextEditingController(text: ""),
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'ประเภทเบาะแส',
+                                isDense: true,
+                              ),
+                              keyboardType: TextInputType.name,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return "กรุณากรอกประเภทเบาะแส เช่น การพนัน ยาเสพติด ฯลฯ";
+                                }
+                                return null;
+                              },
                             ),
-                            keyboardType: TextInputType.name,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "กรุณากรอกประเภทเบาะแส เช่น การพนัน ยาเสพติด ฯลฯ";
-                              }
-                              return null;
+                            Container(margin: EdgeInsets.only(top: 16),
+                              child: TextFormField(
+                                controller: moredetailhint = TextEditingController(text: ""),
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'รายละเอียดเบาะแสเพิ่มเติม',
+                                  isDense: true,
+                                ),
+                                keyboardType: TextInputType.name,
+                              ),
+                            ),
+                            Container(margin: EdgeInsets.only(top: 16),
+                              child: TextFormField(
+                                controller: moredetailplace = TextEditingController(text: ""),
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'รายละเอียดสถานที่เพิ่มเติม',
+                                  isDense: true,
+                                ),
+                                keyboardType: TextInputType.name,
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Container(margin: EdgeInsets.only(top: 20,),
+                                  child: ElevatedButton(
+                                    style: Mycon().myButtonStyle3(), 
+                                    onPressed: () {  },
+                                    child: Icon(Icons.camera_alt_sharp),
+                                  ),
+                                ),
+                                Container(margin: EdgeInsets.only(top: 20,left: 16),
+                                  child: ElevatedButton(
+                                    style: Mycon().myButtonStyle3(), 
+                                    onPressed: () {  },
+                                    child: Icon(Icons.upload),
+                                  ),
+                                ),
+                              ], 
+                            ),
+                          ],
+                        ),
+                        actions: [
+                          TextButton(
+                            child: Text(
+                              "ยืนยัน",
+                            ),
+                            onPressed: () {detailhint();},
+                          ),
+                          TextButton(
+                            child: Text(
+                              "ยกเลิก",
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
                             },
                           ),
-                          Container(margin: EdgeInsets.only(top: 16),
-                            child: TextFormField(
-                              controller: moredetailhint,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'รายละเอียดเบาะแสเพิ่มเติม',
-                                isDense: true,
-                              ),
-                              keyboardType: TextInputType.name,
-                            ),
-                          ),
-                          Container(margin: EdgeInsets.only(top: 16),
-                            child: TextFormField(
-                              controller: moredetailplace,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'รายละเอียดสถานที่เพิ่มเติม',
-                                isDense: true,
-                              ),
-                              keyboardType: TextInputType.name,
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Container(margin: EdgeInsets.only(top: 20,),
-                                child: ElevatedButton(
-                                  style: Mycon().myButtonStyle3(), 
-                                  onPressed: () {  },
-                                  child: Icon(Icons.camera_alt_sharp),
-                                ),
-                              ),
-                              Container(margin: EdgeInsets.only(top: 20,left: 16),
-                                child: ElevatedButton(
-                                  style: Mycon().myButtonStyle3(), 
-                                  onPressed: () {  },
-                                  child: Icon(Icons.upload),
-                                ),
-                              ),
-                            ], 
-                          ),
                         ],
-                      ),
-                      actions: [
-                        TextButton(
-                          child: Text(
-                            "ยืนยัน",
-                          ),
-                          onPressed: () {detailhint();},
-                        ),
-                        TextButton(
-                          child: Text(
-                            "ยกเลิก",
-                          ),
-                          onPressed: () {},
-                        ),
-                      ],
-                    );
+                      );
 
-                    showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (BuildContext context) {
-                        
-                        return alertBox;
-                      },
-                    );
-                  },
-                  child: Text('กรอกรายละเอียดเบาะแส'),
-                ),
-              ),
-            ],
-          ),
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (BuildContext context) {
+                          
+                          return alertBox;
+                        },
+                      );
+                    },
+                    child: Text('กรอกรายละเอียดเบาะแส'),
+                  ),
+            ),
         ),
       ]),
       drawer: Drawer(

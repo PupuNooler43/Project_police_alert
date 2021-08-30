@@ -16,6 +16,7 @@ class Mycon {
 
   static String iconlogo = 'images/iconlogo.png';
   static String loadinglogo = 'images/loadinglogo.png';
+  static String avatar = 'images/avatar.png';
 
   //color
 
