@@ -85,7 +85,7 @@ class _DetailuserState extends State<Detailuser> {
     double size = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Account'),
+        title: Text('Information'),
         centerTitle: true,
         backgroundColor: Mycon.dark,
         leading: IconButton(

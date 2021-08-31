@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -6,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 import 'package:project_policealert/states/detail_user.dart';
 import 'package:project_policealert/states/login.dart';
 import 'package:project_policealert/utility/myconstant.dart';
@@ -34,6 +36,7 @@ class Data {
 }
 
 class _MaphintState extends State<Maphint> {
+  File? file;
 
   TextEditingController typedetail = TextEditingController();
   TextEditingController moredetailhint = TextEditingController();
@@ -83,7 +86,7 @@ class _MaphintState extends State<Maphint> {
   Future detailhint() async {
     var res = await http.post(
       Uri.parse(
-        "http://192.168.1.32/datacon/insert_detail.php",  
+        "http://192.168.1.32/datacon/insert_detail.php",
       ),
       body: {
         "type_detail": typedetail.text,
@@ -121,8 +124,20 @@ class _MaphintState extends State<Maphint> {
     super.initState();
   }
 
+  //image picker
+  Future<Null> chooseImage(ImageSource source) async {
+    try {
+      var result = await ImagePicker()
+          .pickImage(source: source, maxWidth:200, maxHeight: 200);
+      setState(() {
+        file = File(result!.path);
+      });
+    } catch (e) {}
+  }
+
   @override
   Widget build(BuildContext context) {
+    double size = MediaQuery.of(context).size.width;
     final name = 'Police Alert';
     final area = 'FOR BANGNA';
 
@@ -171,102 +186,118 @@ class _MaphintState extends State<Maphint> {
           },
         ),
         Center(
-          child: Container(margin: EdgeInsets.only(top: 600),
-            child:ElevatedButton(
-                    style: Mycon().myButtonStyle(),
-                    onPressed: () {
-                      AlertDialog alertBox = AlertDialog(
-                        title: Text("รายละเอียดเบาะแส"),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            TextFormField(
-                              controller: typedetail = TextEditingController(text: ""),
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'ประเภทเบาะแส',
-                                isDense: true,
-                              ),
-                              keyboardType: TextInputType.name,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return "กรุณากรอกประเภทเบาะแส เช่น การพนัน ยาเสพติด ฯลฯ";
-                                }
-                                return null;
-                              },
-                            ),
-                            Container(margin: EdgeInsets.only(top: 16),
-                              child: TextFormField(
-                                controller: moredetailhint = TextEditingController(text: ""),
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: 'รายละเอียดเบาะแสเพิ่มเติม',
-                                  isDense: true,
-                                ),
-                                keyboardType: TextInputType.name,
-                              ),
-                            ),
-                            Container(margin: EdgeInsets.only(top: 16),
-                              child: TextFormField(
-                                controller: moredetailplace = TextEditingController(text: ""),
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: 'รายละเอียดสถานที่เพิ่มเติม',
-                                  isDense: true,
-                                ),
-                                keyboardType: TextInputType.name,
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                Container(margin: EdgeInsets.only(top: 20,),
-                                  child: ElevatedButton(
-                                    style: Mycon().myButtonStyle3(), 
-                                    onPressed: () {  },
-                                    child: Icon(Icons.camera_alt_sharp),
-                                  ),
-                                ),
-                                Container(margin: EdgeInsets.only(top: 20,left: 16),
-                                  child: ElevatedButton(
-                                    style: Mycon().myButtonStyle3(), 
-                                    onPressed: () {  },
-                                    child: Icon(Icons.upload),
-                                  ),
-                                ),
-                              ], 
-                            ),
-                          ],
+          child: Container(
+            margin: EdgeInsets.only(top: 600),
+            child: ElevatedButton(
+              style: Mycon().myButtonStyle(),
+              onPressed: () {
+                AlertDialog alertBox = AlertDialog(
+                  title: Text("รายละเอียดเบาะแส"),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      TextFormField(
+                        controller: typedetail =
+                            TextEditingController(text: ""),
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'ประเภทเบาะแส',
+                          isDense: true,
                         ),
-                        actions: [
-                          TextButton(
-                            child: Text(
-                              "ยืนยัน",
-                            ),
-                            onPressed: () {detailhint();},
+                        keyboardType: TextInputType.name,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "กรุณากรอกประเภทเบาะแส เช่น การพนัน ยาเสพติด ฯลฯ";
+                          }
+                          return null;
+                        },
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 16),
+                        child: TextFormField(
+                          controller: moredetailhint =
+                              TextEditingController(text: ""),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'รายละเอียดเบาะแสเพิ่มเติม',
+                            isDense: true,
                           ),
-                          TextButton(
-                            child: Text(
-                              "ยกเลิก",
+                          keyboardType: TextInputType.name,
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 16),
+                        child: TextFormField(
+                          controller: moredetailplace =
+                              TextEditingController(text: ""),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'รายละเอียดสถานที่เพิ่มเติม',
+                            isDense: true,
+                          ),
+                          keyboardType: TextInputType.name,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(
+                              top: 10,
                             ),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
+                            child: ElevatedButton(
+                              style: Mycon().myButtonStyle3(),
+                              onPressed: () => chooseImage(ImageSource.camera),
+                              child: Icon(Icons.camera_alt_sharp),
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: 10, left: 16),
+                            child: ElevatedButton(
+                              style: Mycon().myButtonStyle3(),
+                              onPressed: () => chooseImage(ImageSource.gallery),
+                              child: Icon(Icons.upload),
+                            ),
                           ),
                         ],
-                      );
-
-                      showDialog(
-                        context: context,
-                        barrierDismissible: false,
-                        builder: (BuildContext context) {
-                          
-                          return alertBox;
-                        },
-                      );
-                    },
-                    child: Text('กรอกรายละเอียดเบาะแส'),
+                      ),
+                      Container(margin: EdgeInsets.only(top: 5),width: size * 0.2,
+                        child: file == null
+                            ? ShowImage(path: Mycon.image)
+                            : Image.file(file!),
+                      ),
+                    ],
                   ),
+                  actions: [
+                    TextButton(
+                      child: Text(
+                        "ยืนยัน",
+                      ),
+                      onPressed: () {
+                        detailhint();
+                      },
+                    ),
+                    TextButton(
+                      child: Text(
+                        "ยกเลิก",
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                );
+
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (BuildContext context) {
+                    return alertBox;
+                  },
+                );
+              },
+              child: Text('กรอกรายละเอียดเบาะแส'),
             ),
+          ),
         ),
       ]),
       drawer: Drawer(
