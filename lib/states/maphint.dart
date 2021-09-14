@@ -92,6 +92,8 @@ class _MaphintState extends State<Maphint> {
         "type_detail": typedetail.text,
         "more_detail_hint": moredetailhint.text,
         "more_detail_place": moredetailplace.text,
+        "latitude": userLocation.latitude.toString() ,
+        "longitude": userLocation.longitude.toString(),
       },
     );
 
