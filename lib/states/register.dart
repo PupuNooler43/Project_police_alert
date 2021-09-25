@@ -16,18 +16,17 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-
   bool statusRedeye = true;
   bool statusRedeyecom = true;
 
   var _regis = GlobalKey<FormState>();
 
-TextEditingController username = TextEditingController();
-TextEditingController password = TextEditingController();
-TextEditingController conpass = TextEditingController();
-TextEditingController name = TextEditingController();
-TextEditingController surname = TextEditingController();
-TextEditingController tel = TextEditingController();
+  TextEditingController username = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController conpass = TextEditingController();
+  TextEditingController name = TextEditingController();
+  TextEditingController surname = TextEditingController();
+  TextEditingController tel = TextEditingController();
 
   Future regis() async {
     var res = await http.post(
@@ -85,7 +84,6 @@ TextEditingController tel = TextEditingController();
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width;
 
-
     return Scaffold(
       body: SafeArea(
         child: GestureDetector(
@@ -93,7 +91,7 @@ TextEditingController tel = TextEditingController();
             FocusNode(),
           ),
           behavior: HitTestBehavior.opaque,
-          child:Form(
+          child: Form(
             key: _regis,
             child: ListView(
               children: [
@@ -116,16 +114,17 @@ TextEditingController tel = TextEditingController();
 
   Row buildTitleregis() {
     return Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 16),
-                    child: ShowTitle(
-                  title: 'สมัครสมาชิก',
-                  textStyle: Mycon().h1Style(),
-                )),
-              ],
-            );
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 16),
+          child: ShowTitle(
+            title: 'สมัครสมาชิก',
+            textStyle: Mycon().h1Style(),
+          ),
+        ),
+      ],
+    );
   }
 
   Row buildUser(double size) {
@@ -154,24 +153,23 @@ TextEditingController tel = TextEditingController();
               ),
             ),
             inputFormatters: [
-                        LengthLimitingTextInputFormatter(
-                          20,
-                        ),
-                        FilteringTextInputFormatter.allow(
-                          RegExp(
-                            r"[A-Za-z0-9!@#$%^&*-_+=\/.|?]",
-                          ),
-                        ),
-                      ],
+              LengthLimitingTextInputFormatter(
+                20,
+              ),
+              FilteringTextInputFormatter.allow(
+                RegExp(
+                  r"[A-Za-z0-9!@#$%^&*-_+=\/.|?]",
+                ),
+              ),
+            ],
             validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "กรุณากรอกชื่อผู้ใช้";
-                          }
-                          else if (value.length < 8) {
-                          return "ความยาวของชื่อผู้ใช้อย่างน้อย 8 ตัวอักษร";
-                          }
-                          return null;
-                        },
+              if (value == null || value.isEmpty) {
+                return "กรุณากรอกชื่อผู้ใช้";
+              } else if (value.length < 8) {
+                return "ความยาวของชื่อผู้ใช้อย่างน้อย 8 ตัวอักษร";
+              }
+              return null;
+            },
           ),
         ),
       ],
@@ -221,24 +219,23 @@ TextEditingController tel = TextEditingController();
               ),
             ),
             inputFormatters: [
-                        LengthLimitingTextInputFormatter(
-                          20,
-                        ),
-                        FilteringTextInputFormatter.allow(
-                          RegExp(
-                            r"[A-Za-z0-9!@#$%^&*-_+=\/.|?]",
-                          ),
-                        ),
-                      ],
+              LengthLimitingTextInputFormatter(
+                20,
+              ),
+              FilteringTextInputFormatter.allow(
+                RegExp(
+                  r"[A-Za-z0-9!@#$%^&*-_+=\/.|?]",
+                ),
+              ),
+            ],
             validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "กรุณากรอกรหัสผ่าน";
-                          }
-                          else if (value.length < 8) {
-                          return "ความยาวของอย่างน้อย 8 ตัวอักษร";
-                          }
-                          return null;
-                        },
+              if (value == null || value.isEmpty) {
+                return "กรุณากรอกรหัสผ่าน";
+              } else if (value.length < 8) {
+                return "ความยาวของอย่างน้อย 8 ตัวอักษร";
+              }
+              return null;
+            },
           ),
         ),
       ],
@@ -288,24 +285,23 @@ TextEditingController tel = TextEditingController();
               ),
             ),
             inputFormatters: [
-                        LengthLimitingTextInputFormatter(
-                          20,
-                        ),
-                        FilteringTextInputFormatter.allow(
-                          RegExp(
-                            r"[A-Za-z0-9!@#$%^&*-_+=\/.|?]",
-                          ),
-                        ),
-                      ],
+              LengthLimitingTextInputFormatter(
+                20,
+              ),
+              FilteringTextInputFormatter.allow(
+                RegExp(
+                  r"[A-Za-z0-9!@#$%^&*-_+=\/.|?]",
+                ),
+              ),
+            ],
             validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "กรุณายืนยันรหัสผ่าน";
-                          }
-                          else if (value != password.text) {
-                            return "รหัสผ่านไม่ตรงกัน";
-                          }
-                          return null;
-                        },
+              if (value == null || value.isEmpty) {
+                return "กรุณายืนยันรหัสผ่าน";
+              } else if (value != password.text) {
+                return "รหัสผ่านไม่ตรงกัน";
+              }
+              return null;
+            },
           ),
         ),
       ],
@@ -338,11 +334,11 @@ TextEditingController tel = TextEditingController();
               ),
             ),
             validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "กรุณากรอกชื่อ";
-                          }
-                          return null;
-                        },
+              if (value == null || value.isEmpty) {
+                return "กรุณากรอกชื่อ";
+              }
+              return null;
+            },
           ),
         ),
       ],
@@ -375,11 +371,11 @@ TextEditingController tel = TextEditingController();
               ),
             ),
             validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "กรุณากรอกนามสกุล";
-                          }
-                          return null;
-                        },
+              if (value == null || value.isEmpty) {
+                return "กรุณากรอกนามสกุล";
+              }
+              return null;
+            },
           ),
         ),
       ],
@@ -412,20 +408,20 @@ TextEditingController tel = TextEditingController();
               ),
             ),
             inputFormatters: [
-                          LengthLimitingTextInputFormatter(10),
-                          FilteringTextInputFormatter.allow(
-                            RegExp(
-                              r"[0-9]",
-                            ),
-                          ),
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
+              LengthLimitingTextInputFormatter(10),
+              FilteringTextInputFormatter.allow(
+                RegExp(
+                  r"[0-9]",
+                ),
+              ),
+              FilteringTextInputFormatter.digitsOnly,
+            ],
             validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "กรุณากรอกหมายเลขโทรศัพท์";
-                          }
-                          return null;
-                        },
+              if (value == null || value.isEmpty) {
+                return "กรุณากรอกหมายเลขโทรศัพท์";
+              }
+              return null;
+            },
           ),
         ),
       ],
@@ -434,40 +430,39 @@ TextEditingController tel = TextEditingController();
 
   Row buildRegister(double size) {
     return Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 16),
-                  width: size * 0.6,
-                  child: ElevatedButton(
-                    style: Mycon().myButtonStyle(),
-                    onPressed:(){
-                      if (_regis.currentState!.validate()) {
-                            regis();
-                          }
-                    }, 
-                    child: Text('Register'),
-                  ),
-                ),
-              ],
-            );
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 16),
+          width: size * 0.6,
+          child: ElevatedButton(
+            style: Mycon().myButtonStyle(),
+            onPressed: () {
+              if (_regis.currentState!.validate()) {
+                regis();
+              }
+            },
+            child: Text('Register'),
+          ),
+        ),
+      ],
+    );
   }
 
   Row buildCencel(double size) {
     return Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 5),
-                  width: size * 0.6,
-                  child: ElevatedButton(
-                    style: Mycon().myButtonStyle(),
-                    onPressed:()=>Navigator.pushNamed(context, Mycon.routeLogin), 
-                    child: Text('Cencel'),
-                  ),
-                ),
-              ],
-            );
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 5),
+          width: size * 0.6,
+          child: ElevatedButton(
+            style: Mycon().myButtonStyle(),
+            onPressed: () => Navigator.pushNamed(context, Mycon.routeLogin),
+            child: Text('Cencel'),
+          ),
+        ),
+      ],
+    );
   }
-
 }
